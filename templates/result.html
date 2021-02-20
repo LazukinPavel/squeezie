@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Result{% endblock %}</h1>
+{% endblock %}
+
+
+{% block content %}
+    <div>Your squeezed URL: {{short_url}} </div>
+    <div>Redirect count: {{redirect_count}}</div>
+{% endblock %}
