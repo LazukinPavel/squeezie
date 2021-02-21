@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect
+from flask import Flask, request, abort
 from playhouse.postgres_ext import PostgresqlDatabase
 
 from controllers import URLCreateController, URLResultController, URLRedirectController
@@ -43,4 +43,4 @@ def init_routes(app):
 
     @app.route("/<uuid>")
     def short_url(uuid):
-        return URLRedirectController(request).call(uuid)
+        return URLRedirectController(request).call(uuid) or abort(404)
