@@ -1,7 +1,7 @@
 import validators
 from urllib.parse import urljoin
 
-from flask import redirect, url_for, render_template, current_app
+from flask import abort, redirect, url_for, render_template, current_app
 
 from models import Url
 
@@ -59,6 +59,15 @@ class URLResultController(URLController):
         return render_template(
             "result.html", short_url=short_url, redirect_count=redirect_count
         )
+
+
+class URLRedirectController(URLController):
+    def _call(self, uuid):
+        url = Url.get_or_none(Url.uuid == uuid)
+        if url is not None:
+            return redirect(url.origin)
+
+        abort(404)
 
 
 class ValidationError(Exception):

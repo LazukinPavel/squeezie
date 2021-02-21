@@ -1,7 +1,7 @@
-from flask import Flask, request
+from flask import Flask, request, redirect
 from playhouse.postgres_ext import PostgresqlDatabase
 
-from controllers import URLCreateController, URLResultController
+from controllers import URLCreateController, URLResultController, URLRedirectController
 from models import db as db_proxy
 
 
@@ -40,3 +40,7 @@ def init_routes(app):
     @app.route("/", methods=["GET", "POST"])
     def main():
         return URLCreateController(request).call()
+
+    @app.route("/<uuid>")
+    def short_url(uuid):
+        return URLRedirectController(request).call(uuid)
