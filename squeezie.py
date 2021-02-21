@@ -5,9 +5,6 @@ from controllers import URLCreateController, URLResultController
 from models import db as db_proxy
 
 
-# TODO front-end bootstrap
-
-
 def create_app():
     app = Flask(__name__)
     app.config.from_object("config.Config")

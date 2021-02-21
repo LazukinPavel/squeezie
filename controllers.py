@@ -15,9 +15,12 @@ class URLController:
     def call(self, *args, **kwargs):
         try:
             return self._call(*args, **kwargs)
-        except Exception as e:
+        except ValidationError as e:
             current_app.logger.error(str(e))
             return render_template("error.html", error=str(e))
+        except Exception as e:
+            current_app.logger.error(str(e))
+            return render_template("error.html", error="Service Error")
 
     def _call(self, *args, **kwargs):
         raise NotImplementedError("%s._call" % self.__class__.__name__)
